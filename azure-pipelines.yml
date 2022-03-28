@@ -1,0 +1,43 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.x'
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'tfsaldo'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'AngularDemo'
+    cliProjectName: 'AngularDemo'
+    cliSources: '.'
+    extraProperties: |
+      SONAR_SCANNER_OPTS=-Xmx2048m
+      sonar.sourceEncoding=UTF-8
+      sonar.exclusions=**/node_modules/**,**/*.spec.ts
+      sonar.tests=src/app
+      sonar.test.inclusions=**/*.spec.ts
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: '.'
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: '.'
+    customCommand: 'run build'
+- task: SonarCloudAnalyze@1
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'

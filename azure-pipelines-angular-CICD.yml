@@ -1,0 +1,36 @@
+trigger:
+  branches:
+    include:
+      - master
+      
+resources:
+  repositories:
+    - repository: ibkTeamAzTemplates
+      name: IBK/AzureDevops
+      type: git
+      ref: main
+
+variables:
+  - name: ProjectName
+    value: "angulardemo"
+  - name: ContainerRegistry
+    value: "Dockerhub"
+
+name: $(Rev:r)
+stages:
+  - template: Build/Angular/azure-pipelines-build.yml@ibkTeamAzTemplates
+    parameters:
+      vmImage: ubuntu-latest
+      NodeVersion: 16.X
+      SonarCloudEnabled: true
+      # SonarCloud_Service_Connections: 'TFSAldo'
+      # SonarCloud_Organization: 'devopsibk'
+      ProjectName: $(ProjectName)
+      SourcesPath: '.'
+      NPMworkingDir: '.'
+      SonarCloudCoverage: false
+      PublishArtifacts: true
+      PathDist: './dist'
+      DockerEnabled: true
+      ContainerRegistry: $(ContainerRegistry)
+      Repository: 040482
