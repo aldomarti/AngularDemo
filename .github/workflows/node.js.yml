@@ -21,15 +21,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3    
-    - name: Leer versión
-      id: read_version
-      run: echo "VERSION=$(cat version.txt)" >> $GITHUB_OUTPUT
-    - name: Incrementar versión
-      id: increment_version
-      run: |
-        NEXT_VERSION=$(( ${{ steps.read_version.outputs.VERSION }} + 1 ))
-        echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_OUTPUT
-        echo "version=1.0.${NEXT_VERSION}" > build.properties # O actualizar package.json
+    - name: Obtener número de build
+      run: echo "El número de build es ${{ github.run_number }}"
+    - name: Usar en un archivo
+      run: echo "version=1.0.${{ github.run_number }}" > build.properties
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
