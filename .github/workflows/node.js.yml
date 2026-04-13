@@ -26,11 +26,11 @@ jobs:
       run: echo "El número de build es ${{ github.run_number }}"
     - name: Usar en un archivo
       run: echo "version=1.0.${{ github.run_number }}" > build.properties
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+    # - name: Use Node.js ${{ matrix.node-version }}
+    #   uses: actions/setup-node@v3
+    #   with:
+    #     node-version: ${{ matrix.node-version }}
+    #     cache: 'npm'
     # - run: npm ci
     # - run: npm run build --if-present
     # - run: npm test
