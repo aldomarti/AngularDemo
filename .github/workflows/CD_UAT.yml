@@ -3,6 +3,7 @@ name: CD_UAT
 on:
   workflow_run:
     workflows: ["Node.js CI"]
+    branches: [main]
     types: [completed]
   workflow_dispatch:
 
