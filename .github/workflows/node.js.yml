@@ -24,8 +24,13 @@ jobs:
     - uses: actions/checkout@v3    
     - name: Obtener número de build
       run: echo "El número de build es ${{ github.run_number }}"
-    - name: Usar en un archivo
-      run: echo "version=1.0.${{ github.run_number }}" > build.properties
+    # - name: Usar en un archivo
+    #   run: echo "version=1.0.${{ github.run_number }}" > build.properties
+    - name: Subir versión como artefacto
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-properties
+        path: build.properties
     # - name: Use Node.js ${{ matrix.node-version }}
     #   uses: actions/setup-node@v3
     #   with:

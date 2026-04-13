@@ -10,5 +10,23 @@ on:
 jobs:
   on-success:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - run: echo 'The triggering workflow passed'
+      - name: Descargar artefacto de versión
+        uses: actions/download-artifact@v4
+        with:
+          name: build-properties
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+        continue-on-error: true
+      - name: Leer versión
+        id: leer_version
+        run: |
+          if [ -f build.properties ]; then
+            VERSION=$(grep 'version=' build.properties | cut -d'=' -f2)
+          else
+            VERSION="desconocida"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "La versión del build es: $VERSION"
+      - run: echo 'The triggering workflow passed with version ${{ steps.leer_version.outputs.version }}'
