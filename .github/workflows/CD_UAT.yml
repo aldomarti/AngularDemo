@@ -1,0 +1,11 @@
+name: CD_UAT
+
+on:
+  workflow_run:
+    workflows: ["Node.js CI"]
+
+jobs:
+  on-success:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'The triggering workflow passed'
