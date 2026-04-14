@@ -32,5 +32,3 @@ jobs:
       - run: echo 'The triggering workflow passed with version ${{ steps.leer_version.outputs.version }}'
       - name: test
         run: echo ${{ steps.leer_version.outputs.version }}
-      - run: git branch
-      - run: env
