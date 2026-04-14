@@ -30,3 +30,4 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "La versión del build es: $VERSION"
       - run: echo 'The triggering workflow passed with version ${{ steps.leer_version.outputs.version }}'
+      - run: echo 'The triggering workflow passed with version $VERSION'
