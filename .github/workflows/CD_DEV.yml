@@ -1,5 +1,5 @@
 name: CD_DEV
-run-name: "CD DEV ${{ inputs.version || format('1.0.{0}', github.run_number) }}"
+run-name: "CD DEV ${{ inputs.version || format('1.0.{0}', github.event.workflow_run.run_number || github.run_number) }}"
 
 on:
   workflow_run:

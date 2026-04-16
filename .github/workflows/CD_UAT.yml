@@ -1,9 +1,9 @@
 name: CD_UAT
-run-name: "CD UAT ${{ inputs.version || format('1.0.{0}', github.run_number) }}"
+run-name: "CD UAT ${{ inputs.version }}"
 
 on:
   workflow_run:
-    workflows: ["CD_DEV"]
+    workflows: ["Node.js CI"]
     branches: [main]
     types: [completed]
   workflow_dispatch:
@@ -18,24 +18,23 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
-      # - name: Descargar artefacto de versión
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: build-properties
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     run-id: ${{ github.event.workflow_run.id }}
-      #   continue-on-error: true
-      # - name: Leer versión
-      #   id: leer_version
-      #   run: |
-      #     if [ -f build.properties ]; then
-      #       VERSION=$(grep 'version=' build.properties | cut -d'=' -f2)
-      #     else
-      #       VERSION="desconocida"
-      #     fi
-      #     echo "version=$VERSION" >> $GITHUB_OUTPUT
-      #     echo "La versión del build es: $VERSION"
-      # - run: echo 'The triggering workflow passed with version ${{ steps.leer_version.outputs.version }}'
-      # - name: test
-      #   run: echo ${{ steps.leer_version.outputs.version }}
-      - run: echo 'The triggering workflow passed with version'
+      - name: Descargar artefacto de versión
+        uses: actions/download-artifact@v4
+        with:
+          name: build-properties
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+        continue-on-error: true
+      - name: Leer versión
+        id: leer_version
+        run: |
+          if [ -f build.properties ]; then
+            VERSION=$(grep 'version=' build.properties | cut -d'=' -f2)
+          else
+            VERSION="desconocida"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "La versión del build es: $VERSION"
+      - run: echo 'The triggering workflow passed with version ${{ steps.leer_version.outputs.version }}'
+      - name: test
+        run: echo ${{ steps.leer_version.outputs.version }}
