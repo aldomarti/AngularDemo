@@ -1,9 +1,9 @@
-name: CD_UAT
-run-name: "CD UAT ${{ inputs.version || format('1.0.{0}', github.run_number) }}"
+name: CD_PRD
+run-name: "CD PRD ${{ inputs.version || format('1.0.{0}', github.run_number) }}"
 
 on:
   workflow_run:
-    workflows: ["CD_DEV"]
+    workflows: ["CD_UAT"]
     branches: [main]
     types: [completed]
   workflow_dispatch:
