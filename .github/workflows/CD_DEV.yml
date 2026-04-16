@@ -3,7 +3,7 @@ run-name: "CD DEV ${{ inputs.version || format('1.0.{0}', github.run_number) }}"
 
 on:
   workflow_run:
-    workflows: ["Node.js CI"]
+    workflows: ["CI"]
     branches: [main]
     types: [completed]
   workflow_dispatch:
