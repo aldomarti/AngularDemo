@@ -13,22 +13,26 @@ on:
 env:
   VERSION: 1.0.${{ github.run_number }}
 jobs:
-  build:
+  Build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
     - run: echo "Hola soy el Build ${{ env.VERSION }}"
-  deployDev:
-    needs: build
+  DEV:
+    name: Deploy Dev
+    needs: Build
     runs-on: ubuntu-latest
     steps:
     - run: echo "Hola soy el Deploy dev ${{ env.VERSION }}"
-  deployUAT:
-    needs: deployDev
+  UAT:
+    name: Deploy UAT
+    needs: DEV
     runs-on: ubuntu-latest
     steps:
     - run: echo "Hola soy el Deploy UAT ${{ env.VERSION }}"
-  deployProd:
-    needs: deployUAT
+  PRD:
+    name: Deploy Prod
+    needs: UAT
     runs-on: ubuntu-latest
     steps:
     - run: echo "Hola soy el Deploy Prod ${{ env.VERSION }}"
