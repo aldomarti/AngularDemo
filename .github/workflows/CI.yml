@@ -15,7 +15,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: devops-reusable-node/.github/workflows/node_backend_ci.yml@main
+      - uses: aldomarti/devops-reusable-node/.github/workflows/node_backend_ci.yml@main
         with:
           application: dso
           node-version: 16.x
