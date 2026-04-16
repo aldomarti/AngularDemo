@@ -11,33 +11,13 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
-env:
-  VERSION: 1.0.${{ github.run_number }}
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.set_version.outputs.version }}
-
-    # strategy:
-    #   matrix:
-    #     node-version: [16.x]
-    #     # See supported Node.js release schedule at https://nodejs.org/en/about/releases/ [16.x]
-
     steps:
-    # - uses: actions/checkout@v3
-    - name: Exportar versión
-      id: set_version
-      run: echo "version=$VERSION" >> $GITHUB_OUTPUT
-    # - name: Obtener número de build
-    #   run: echo "El número de build es ${{ github.run_number }}"
-    # - name: Usar en un archivo
-    #   run: echo "version=$VERSION" > build.properties
-    # - name: Subir versión como artefacto
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: build-properties
-    #     path: build.properties
-    - run: echo "El número de build es ${{ steps.set_version.outputs.version }}"
+      - uses: actions/checkout@v3
+      - uses: devops-reusable-node/.github/workflows/node_backend_ci.yml@main
+        with:
+          application: dso
+          node-version: 16.x
+          WorkingDirectory: ./
