@@ -1,5 +1,5 @@
 name: CD_UAT
-run-name: "CD UAT ${{ inputs.version }}"
+run-name: "CD UAT ${{ inputs.version || format('1.0.{0}', github.run_number) }}"
 
 on:
   workflow_run:
