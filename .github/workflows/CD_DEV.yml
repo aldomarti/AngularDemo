@@ -9,12 +9,12 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version'
+        description: 'version'
         required: true
         default: ''
 
-env:
-  version: ${{ inputs.version}}
+# env:
+#   version: ${{ inputs.version}}
 
 jobs:
   on-success:
@@ -26,4 +26,4 @@ jobs:
     - name: Exportar versión
       id: set_version
       run: echo "version=$VERSION" >> $GITHUB_OUTPUT
-    - run: echo 'el numero de version es ${{ env.version }}'
+    - run: echo 'el numero de version es ${{ inputs.version }}'
