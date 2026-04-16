@@ -38,4 +38,4 @@ jobs:
       # - run: echo 'The triggering workflow passed with version ${{ steps.leer_version.outputs.version }}'
       # - name: test
       #   run: echo ${{ steps.leer_version.outputs.version }}
-    - run: echo "El número de build es ${{ github.event.workflow_run.run_number || github.run_number }}"
+    - run: echo "El número de build es ${{ inputs.version || format('1.0.{0}', github.event.workflow_run.run_number || github.run_number) }}"
