@@ -31,8 +31,8 @@ jobs:
     steps:
     - run: echo "Hola soy el Deploy UAT ${{ env.VERSION }}"
   PRD:
-    name: Deploy Prod
+    name: Deploy PRD
     needs: UAT
     runs-on: ubuntu-latest
     steps:
-    - run: echo "Hola soy el Deploy Prod ${{ env.VERSION }}"
+    - run: echo "Hola soy el Deploy PRD ${{ env.VERSION }}"
