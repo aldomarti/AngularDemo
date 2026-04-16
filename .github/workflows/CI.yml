@@ -17,6 +17,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.set_version.outputs.version }}
 
     # strategy:
     #   matrix:
@@ -24,7 +26,10 @@ jobs:
     #     # See supported Node.js release schedule at https://nodejs.org/en/about/releases/ [16.x]
 
     steps:
-    - uses: actions/checkout@v3    
+    - uses: actions/checkout@v3
+    - name: Exportar versión
+      id: set_version
+      run: echo "version=$VERSION" >> $GITHUB_OUTPUT
     - name: Obtener número de build
       run: echo "El número de build es ${{ github.run_number }}"
     - name: Usar en un archivo
