@@ -13,6 +13,9 @@ on:
         required: true
         default: ''
 
+env:
+  VERSION: ${{ inputs.version || format('1.0.{0}', github.run_number) }}
+
 jobs:
   on-success:
     runs-on: ubuntu-latest
