@@ -40,4 +40,4 @@ jobs:
     #   with:
     #     name: build-properties
     #     path: build.properties
-    - run: echo "El número de build es"  # ${{ env.VERSION }}
+    - run: echo "El número de build es ${{ steps.set_version.outputs.version }}"
