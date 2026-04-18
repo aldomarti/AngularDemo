@@ -19,5 +19,6 @@ jobs:
     uses: aldomarti/devops-reusable-node/.github/workflows/node_backend_ci.yml@main
     with:
       application: dso
+      repository_name: angulardemo
       nodeVersion: 16.x
       WorkingDirectory: ./
