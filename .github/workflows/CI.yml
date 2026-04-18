@@ -15,8 +15,12 @@ permissions:
   id-token: write
 
 jobs:
-  - uses: aldomarti/devops-reusable-node/.github/workflows/node_backend_ci.yml@main
-    with:
-      application: dso
-      node-version: 16.x
-      WorkingDirectory: ./
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: aldomarti/devops-reusable-node/.github/workflows/node_backend_ci.yml@main
+        with:
+          application: dso
+          node-version: 16.x
+          WorkingDirectory: ./
