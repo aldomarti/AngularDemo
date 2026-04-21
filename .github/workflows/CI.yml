@@ -6,8 +6,8 @@ run-name: "CI 1.0.${{ github.run_number }}"
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main, master, 'release/**', 'hotfix/**' ]
+
   workflow_dispatch:
 
 permissions:
